@@ -1,12 +1,12 @@
 # Emissão Nota Fiscal Eletrônica
+
 <h3>Visão geral</h3>
-<p>Esse projeto foi desenvolvido em Laravel na versão 5.7 abrangendo os módulos de emissão e consulta de nota fiscal eletrônica e também um modulo para consulta de CEP utilizando a API REST disponibilizado pela <a href="https://webmaniabr.com/docs/rest-api-nfe/">WebManiaBR </a>.</p>
+<p>Esse projeto foi desenvolvido em Laravel na versão 5.7 abrangendo os módulos de emissão e consulta de NF-e e também um modulo para consulta de CEP utilizando a API REST disponibilizado pela <a href="https://webmaniabr.com/docs/rest-api-nfe/">WebManiaBR </a>.</p>
 
 <h3>Banco de dados</h3>
 <p>Está sendo utilizado o banco de dados sqlite para armazenar todos os dados de uma nota fiscal emitida pelo sistema web, menos os dados de resposta da API como chave e xml devido a restrição de acesso.</p>
 
 <h3>Modelos</h3>
-<p>Os modelos criados para a interação do sistema com o banco de dados, onde cada um representa uma tabela no banco de dados:</p>
 <ul>
     <li><strong>Cliente</strong></li>
     <li><strong>ModalidadeFrete</strong></li>
@@ -42,7 +42,9 @@
 <h3>Requisitos</h3>
 <p>Para execução do sistema é necessário ter instalado</p>
 <ul>
-    <li><a href="https://getcomposer.org/download/">Composer</a></li>
+    <li><a href="https://getcomposer.org/download/">Composer</a>.</li>
+    <li>Contratação de um plano de <a href="https://webmaniabr.com/smartsales/nota-fiscal-eletronica/">NF-e</a>.</li>
+    <li>Para consulta de CEP é necessario apenas cadastrar um e-mail no site da WebmaniaBR para receber as chaves de acesso gratuitamente, para mais informações acessar a <a href="https://webmaniabr.com/docs/rest-api-cep-ibge/">documentação</a>.</li>
 </ul>
 
 <h3>Utilização</h3>
