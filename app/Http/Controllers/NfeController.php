@@ -21,11 +21,13 @@ use App\Unidade;
 class NfeController extends Controller
 {
 
+    /* Chamada da view index pela rota / */
     public function index()
     {
         return view('index');
     }
 
+    /*  Chamada do formulario para emitir NF-e. */
     public function emitir()
     {
         $modalidade_frete = ModalidadeFrete::all();
@@ -34,19 +36,23 @@ class NfeController extends Controller
         $presenca = Presenca::all();
         $unidade = Unidade::all();
 
+        /*  É enviado a view emissao_nfe, objetos contendo todos os dados de suas respectivas tabelas.
+            Esses dados são usados para preencher options do formulario.
+        */
         return view('emissao_nfe', compact('modalidade_frete', 'operacao', 'origem', 'presenca', 'unidade'));
     }
 
     public function salvar(NfeRequest $request)
     {
-        /* Salvar as informações da nota no banco de dados antes de envia-lo para API*/
+        /** Salvar as informações da nota no banco de dados antes de envia-lo para API */
+        
         DB::beginTransaction();
 
         try{
-            /* Nota Fiscal */
+            /** Salvando os dados na tabela nfe */
             $nfe = Nfe::create($request->except('_token'));
 
-            /* Cliente */
+            /** Salvando os dados na tabela cliente e a relacionando com a tabela nfe */
             $cliente = new Cliente();
             $cliente->nome_completo = $request->input('nome_completo');
             $cliente->email = $request->input('email');
@@ -60,7 +66,7 @@ class NfeController extends Controller
             $cliente->cep = $request->input('cep');
             $nfe->cliente()->save($cliente);
 
-            /* Produtos */
+            /** Salvando os dados na tabela produtos e a relacionando com a tabela nfe */
             $produto = new Produto();
             $produto->nome = $request->input('nome_produto');
             $produto->ncm = $request->input('ncm');
@@ -72,28 +78,33 @@ class NfeController extends Controller
             $produto->total = $request->input('total');
             $nfe->produtos()->save($produto);
 
-            /* Pedido */
+            /** Salvando os dados na tabela pedido e a relacionando com a tabela nfe */
             $pedido = new Pedido();
             $pedido->presenca = $request->input('presenca');
             $pedido->modalidade_frete = $request->input('modalidade_frete');
             $pedido->frete = $request->input('frete');
             $pedido->desconto = $request->input('desconto');
             $nfe->pedido()->save($pedido);
+            /** Comitando a transação com banco */
             DB::commit();
         }catch(Exception $e){
+            /** Caso ocorra uma exceção é revertido a operação com o banco e o redireciona para tela anterior */
             DB::rollback();
             return back()->with('error', 'Não foi possivel lançar a nota fiscal.');
         }
 
-        /* Recarrega o objeto $nfe com os dados inseridos e atualizados ja em formato json*/
+        /** Recarrega o objeto nfe com todos os dados já inseridos e converte para o formato json*/
         $nfe = json_encode($nfe->load(['cliente','pedido','produtos']));
         
+        /** Chama a função responsavel pela comunicação com a API de emissão */
         $this->enviar_dados($nfe);
     }
 
     public function enviar_dados($nfe){
+        /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/nfe/";
 
+        /** Cria um objeto Client da biblioteca Guzzle e adiciona o cabeçalho como requirido pela API. */
         $client = new Client(['headers' => 
             [
                 'Content-type' => 'application/json',
@@ -103,26 +114,33 @@ class NfeController extends Controller
                 'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
             ]
         ]);
-
+        
+        /** Envia o json usando metodo POST para API emissao e armazena o retorno em $resposta */
         $resposta = $client->request('POST', $url.'emissao/', [
             'json' => $nfe
         ]);
-
-        return $r->getBody()->getContents();
+        
+        /** Retorna o conteudo do json recebido da API */
+        return $resposta->getBody()->getContents();
     }
 
+    /** Faz a chamada da view consulta_nfe */
     public function consultar(){
         return view('consulta_nfe');
     }
 
+    /** Metodo responsavel pela consulta de NF-e utilizando sua chave */
     public function consultar_nfe(Request $request){
 
+        /** Validação de campo obrigatorio no input chave */
         $this->validate($request, [
             'chave' => 'required'
         ]);
 
+        /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/nfe/consulta/";
 
+        /** Cria um objeto Client da biblioteca Guzzle e adiciona o cabeçalho como requirido pela API. */
         $client = new Client(['headers' => 
             [
                 'Content-type' => 'application/json',
@@ -133,11 +151,13 @@ class NfeController extends Controller
             ]
         ]);
 
+        /** Envia o json usando metodo GET para API consulta e armazena o retorno em $resposta */
         $resposta = $client->request('GET', $url,[
             'json' => ['chave' => $request->input('chave')]
         ]);
 
-        return $r->getBody()->getContents();
+        /** Retorna o conteudo do json recebido da API */
+        return $resposta->getBody()->getContents();
     }
 
 }

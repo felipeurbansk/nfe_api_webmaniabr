@@ -8,19 +8,26 @@ use App\Nfe;
 class CepController extends Controller
 {
     public function consulta($cep){
+        /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/cep/";
-        $app_key = "XGHKZ7OVJdGNt4taheqfd0OAsJfuaHc9";
-        $app_secret = "7eJAy357F7rlti5tGNO2Nmeu016F4JyiCWR1IESPla2CdJdq";
+        /** Chaves de acesso da API. 
+         *  Essa API é disponibilizada gratuitamente no site https://webmaniabr.com/docs/rest-api-cep-ibge/
+        */
+        $app_key = "seu_app_key";
+        $app_secret = "seu_app_secret";
     
+        /** Cria um objeto Client da biblioteca Guzzle e define seu cabeçalho como requirido pela API. */
         $client = new Client(['headers' => 
             [
                 'Content-type' => 'application/json'
             ]
         ]);
 
-        $r = $client->request('GET', $url.$cep.'/?app_key='.$app_key.'&app_secret='.$app_secret);
-                    
-        return $r->getBody()->getContents();
+        /** Envia o json usando metodo GET para API cep e armazena o retorno em $resposta */
+        $resposta = $client->request('GET', $url.$cep.'/?app_key='.$app_key.'&app_secret='.$app_secret);
+    
+        /** Retorna o conteudo do json recebido da API */
+        return $resposta->getBody()->getContents();
 
     }
 }

@@ -23,6 +23,7 @@ class NfeRequest extends FormRequest
      */
     public function rules()
     {
+        /** Validação de todos os campos do formulario de emissão */
         return [
             'natureza_operacao' => 'required',
             'operacao' => 'required',
