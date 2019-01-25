@@ -19,4 +19,5 @@ Route::get('/nfe/consultar', 'NfeController@consultar');
 Route::get('/nfe/consultar_nfe', 'NfeController@consultar_nfe');
 
 /** Rotas de CEP */
-Route::get('/cep/consultar', 'CepController@cep');
+Route::get('/cep', 'CepController@cep');
+Route::post('/cep/consultar', 'CepController@consultar_cep');

@@ -7,7 +7,8 @@
                 Consultar CEP
             </div>
             <div class="card-body">
-                <form action="/nfe/consultar_nfe" method="get">
+                <form action="/cep/consultar" method="post">
+                    @csrf
                     <h5 class="card-title">Informe o seu CEP</h5>
                     <div class="form-group">
                         <input class="form-control mb-3" type="text" name="cep" id="cep">
@@ -19,5 +20,36 @@
                 </form>
             </div>
         </div>
+        @if(isset($cep))
+            <div class="card mt-3">
+                <div class="card-header">
+                    Resultado da busca
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>CEP</th>
+                                <th>IBGE</th>
+                                <th>Rua</th>
+                                <th>Cidade</th>
+                                <th>Bairro</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{$cep['cep']}}</td>
+                                <td>{{$cep['ibge']}}</td>
+                                <td>{{$cep['endereco']}}</td>
+                                <td>{{$cep['cidade']}}</td>
+                                <td>{{$cep['bairro']}}</td>
+                                <td>{{$cep['uf']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

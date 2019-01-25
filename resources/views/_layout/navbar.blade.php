@@ -16,7 +16,7 @@
             </li>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="/cep/consultar">Consultar CEP</a>
+            <a class="nav-link" href="/cep">Consultar CEP</a>
             </li>
         </ul>
         </div>

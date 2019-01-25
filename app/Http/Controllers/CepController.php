@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use App\Nfe;
 
 class CepController extends Controller
 {
@@ -13,7 +12,12 @@ class CepController extends Controller
     }
 
     /** Metodo de comunicação com a API CEP */
-    public function consulta($cep){
+    public function consultar_cep(Request $request){
+
+        /** Validação de campo obrigatorio no input cep e verifica se está no formato certo */
+        $this->validate($request, [
+            'cep' => 'required|formato_cep'
+        ]);
 
         /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/cep/";
@@ -31,9 +35,10 @@ class CepController extends Controller
         ]);
 
         /** Envia o json usando metodo GET para API cep e armazena o retorno em $resposta */
-        $resposta = $client->request('GET', $url.$cep.'/?app_key='.$app_key.'&app_secret='.$app_secret);
+        $resposta = $client->request('GET', $url.$request->input('cep').'/?app_key='.$app_key.'&app_secret='.$app_secret);
     
         /** Retorna o conteudo do json recebido da API */
-        return $resposta->getBody()->getContents();
+        $cep = json_decode($resposta->getBody()->getContents(), true);
+        return view('consulta_cep', compact('cep'));
     }
 }
