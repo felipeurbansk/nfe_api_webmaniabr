@@ -28,7 +28,7 @@
     O campo CPF e CEP são validados utilizando a biblioteca <a href="https://github.com/LaravelLegends/pt-br-validator">LaravelLegends/pt-br-validator</a>.</p>
 
 <h3>Rotas</h3>
-<p>Nesse projeto existem 5 rotas definidas:</p>
+<p>Nesse projeto existem 7 rotas definidas:</p>
 <ul>
     <li><strong>/</strong> - Redireciona para pagina index.</li>
     <li><strong>/nfe/emitirnfe</strong> – Redireciona para o formulário de emissão.</li>
