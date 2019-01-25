@@ -11,8 +11,12 @@
 |
 */
 
+/** Rotas de Nota Fiscal Eletrônica */
 Route::get('/', 'NfeController@index');
-Route::get('/emitirnfe', 'NfeController@emitir');
-Route::post('/salvarnfe', 'NfeController@salvar');
-Route::get('/consultar', 'NfeController@consultar');
-Route::get('/consultar_nfe', 'NfeController@consultar_nfe');
+Route::get('/nfe/emitirnfe', 'NfeController@emitir');
+Route::post('/nfe/salvarnfe', 'NfeController@salvar');
+Route::get('/nfe/consultar', 'NfeController@consultar');
+Route::get('/nfe/consultar_nfe', 'NfeController@consultar_nfe');
+
+/** Rotas de CEP */
+Route::get('/cep/consultar', 'CepController@cep');

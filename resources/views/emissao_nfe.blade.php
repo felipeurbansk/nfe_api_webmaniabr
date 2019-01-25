@@ -5,7 +5,7 @@
         <div class="row mt-3">
             <div class="container col-9 center">
                 <h5>Emissão de NF-e</h5>
-                <form action="/salvarnfe" method="POST">
+                <form action="/nfe/salvarnfe" method="POST">
                     @csrf
                     <!-- Nota Fiscal -->
                     <div class="card">
@@ -239,7 +239,7 @@
                             <div class="form-group">
                                 <button class="btn btn-success" type="submit">Enviar NF-e</button>
                                 <button class="btn btn-primary" type="reset">Limpar</button>
-                                <a href="/" class="btn btn-secondary">Cancelar</a>  
+                                <a href="/nfe" class="btn btn-secondary">Cancelar</a>  
                             </div>
                         </div>
                     </div>
@@ -250,28 +250,5 @@
 @endsection
 
 @section('javascript')
-
-    function gerarTeste(){
-        $('#natureza_operacao').val('Venda de uma coxinha');
-        $('#nome_completo').val('Felipe Urbanski');
-        $('#cpf').val('438.922.788-22');
-        $('#email').val('felipeurbansk@gmail.com');
-        $('#endereco').val('Pedro Dias Tatit');
-        $('#numero').val(64);
-        $('#complemento').val('Casa');
-        $('#bairro').val('CDHU');
-        $('#cidade').val('Itararé');
-        $('#uf').val('SP');
-        $('#cep').val('18460-000');
-        $('#item').val(50);
-        $('#nome_produto').val('Coxinha Master');
-        $('#ncm').val(1144);
-        $('#quantidade').val(20);
-        $('#peso').val(10);
-        $('#subtotal').val(200);
-        $('#total').val(220);
-        $('#frete').val(30);
-        $('#desconto').val(10);
-    }
-
+    <!-- Javascript aqui -->
 @endsection

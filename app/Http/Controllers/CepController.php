@@ -7,7 +7,14 @@ use App\Nfe;
 
 class CepController extends Controller
 {
+    /** Chamada da view consulta_cep */
+    public function cep(){
+        return view('consulta_cep');
+    }
+
+    /** Metodo de comunicação com a API CEP */
     public function consulta($cep){
+
         /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/cep/";
         /** Chaves de acesso da API. 
@@ -28,6 +35,5 @@ class CepController extends Controller
     
         /** Retorna o conteudo do json recebido da API */
         return $resposta->getBody()->getContents();
-
     }
 }

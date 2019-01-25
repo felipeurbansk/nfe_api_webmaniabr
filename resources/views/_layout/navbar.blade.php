@@ -9,10 +9,14 @@
             <a class="nav-link" href="/">Inicio</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="/emitirnfe">Emitir NF-e</a>
+            <a class="nav-link" href="/nfe/emitirnfe">Emitir NF-e</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="/consultar">Consultar NF-e</a>
+            <a class="nav-link" href="/nfe/consultar">Consultar NF-e</a>
+            </li>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/cep/consultar">Consultar CEP</a>
             </li>
         </ul>
         </div>
