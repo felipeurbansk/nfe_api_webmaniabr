@@ -59,7 +59,7 @@
 
 <p>Após os passos anteriores o projeto já está pronto para ser iniciado, e para isso falta apenas iniciar o servidor web do próprio laravel:</p>
 
-<h4>php artisan serve</h4>
+>php artisan serve
 
 <p>Com isso será informado um link de acesso ao sistema, por padrão esse link disponibilizado é localhost:8000.</p>
 <p>E dessa forma já se tem acesso ao sistema web podendo assim realizar os devidos testes.</p>
