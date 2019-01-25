@@ -1,6 +1,6 @@
 # Emissão Nota Fiscal Eletrônica
 <h3>Visão geral</h3>
-<p>Esse projeto foi desenvolvido em Laravel na versão 5.7 abrangendo os módulos de emissão e consulta de nota fiscal eletrônica utilizando a API REST disponibilizado pela <a href="https://webmaniabr.com/docs/rest-api-nfe/">WebManiaBR </a>.</p>
+<p>Esse projeto foi desenvolvido em Laravel na versão 5.7 abrangendo os módulos de emissão e consulta de nota fiscal eletrônica e também um modulo para consulta de CEP utilizando a API REST disponibilizado pela <a href="https://webmaniabr.com/docs/rest-api-nfe/">WebManiaBR </a>.</p>
 
 <h3>Banco de dados</h3>
 <p>Está sendo utilizado o banco de dados sqlite para armazenar todos os dados de uma nota fiscal emitida pelo sistema web, menos os dados de resposta da API como chave e xml devido a restrição de acesso.</p>
@@ -20,7 +20,7 @@
 </ul>
 
 <h3>Controladores</h3>
-<p>Tanto a função de consulta quanto a de emissão estão inseridas em apenas um controlador, NfeController, nesse controlador está toda a lógica de comunicação com a API utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>, inserção e consulta de NF-e.</p>
+<p>As funções de consulta e emissão estão inseridas no controlador NfeController, nele está toda a lógica de comunicação com a API utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>. Também existe o controlador CepController responsavel pela comunicação com a API CEP.</p>
 
 <h3>Validação do formulario</h3>
 <p>As validações dos dados informados no formulário estão sendo tratados em uma classe request, localizado no diretório app/Http/Requests.</p>
@@ -31,10 +31,12 @@
 <p>Nesse projeto existem 5 rotas definidas:</p>
 <ul>
     <li><strong>/</strong> - Redireciona para pagina index.</li>
-    <li><strong>/emitirnfe</strong> – Redireciona para o formulário de emissão.</li>
-    <li><strong>/salvarnfe</strong> – Redireciona para o controlador NfeController função salvar.</li>
-    <li><strong>/consultar</strong> – Redireciona para o formulário de consulta</li>
-    <li><strong>/consultar_nfe</strong> – Redireciona para o controlador NfeController função consultar_nfe</li>
+    <li><strong>/nfe/emitirnfe</strong> – Redireciona para o formulário de emissão.</li>
+    <li><strong>/nfe/salvarnfe</strong> – Redireciona para o controlador NfeController função salvar.</li>
+    <li><strong>/nfe/consultar</strong> – Redireciona para o formulário de consulta</li>
+    <li><strong>/nfe/consultar_nfe</strong> – Redireciona para o controlador NfeController função consultar_nfe</li>
+    <li><strong>/cep</strong> – Redireciona para o formulário de consultar CEP.</li>
+    <li><strong>/cep/consultar</strong> – Redireciona para o controlador CepController função consultar_cep</li>
 </ul>
 
 <h3>Requisitos</h3>
