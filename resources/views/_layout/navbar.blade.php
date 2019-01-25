@@ -8,16 +8,26 @@
             <li class="nav-item active">
             <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/nfe/emitirnfe">Emitir NF-e</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    NF-e
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/nfe/emitirnfe">Emitir</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/nfe/consultar_cep">Consultar</a>
+                </div>
+              </li>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/nfe/consultar">Consultar NF-e</a>
-            </li>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/cep">Consultar CEP</a>
-            </li>
+            <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        CEP
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/cep">Consultar</a>
+                    </div>
+                  </li>
+                </li>
         </ul>
         </div>
     </nav>

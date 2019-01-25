@@ -20,6 +20,18 @@ use App\Unidade;
 
 class NfeController extends Controller
 {
+    /** Instancia um objeto Client da biblioteca Guzzle e adiciona o cabeçalho como requirido pela API. */
+    public function __construct(){
+        $client = new Client(['headers' => 
+                [
+                    'Content-type' => 'application/json',
+                    'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
+                    'X-Consumer-Secret' => 'SEU_CONSUMER_SECRET',
+                    'X-Access-Token' => 'SEU_ACCESS_TOKEN',
+                    'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
+                ]
+        ]);
+    }
 
     /* Chamada da view index pela rota / */
     public function index()
@@ -103,17 +115,6 @@ class NfeController extends Controller
     public function enviar_dados($nfe){
         /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/nfe/";
-
-        /** Cria um objeto Client da biblioteca Guzzle e adiciona o cabeçalho como requirido pela API. */
-        $client = new Client(['headers' => 
-            [
-                'Content-type' => 'application/json',
-                'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
-                'X-Consumer-Secret' => 'SEU_CONSUMER_SECRET',
-                'X-Access-Token' => 'SEU_ACCESS_TOKEN',
-                'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
-            ]
-        ]);
         
         /** Envia o json usando metodo POST para API emissao e armazena o retorno em $resposta */
         $resposta = $client->request('POST', $url.'emissao/', [
@@ -139,17 +140,6 @@ class NfeController extends Controller
 
         /** Atribui o endereço base para a chamada da API */
         $url = "https://webmaniabr.com/api/1/nfe/consulta/";
-
-        /** Cria um objeto Client da biblioteca Guzzle e adiciona o cabeçalho como requirido pela API. */
-        $client = new Client(['headers' => 
-            [
-                'Content-type' => 'application/json',
-                'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
-                'X-Consumer-Secret' => 'SEU_CONSUMER_SECRET',
-                'X-Access-Token' => 'SEU_ACCESS_TOKEN',
-                'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
-            ]
-        ]);
 
         /** Envia o json usando metodo GET para API consulta e armazena o retorno em $resposta */
         $resposta = $client->request('GET', $url,[

@@ -7,7 +7,7 @@
                 Consultar CEP
             </div>
             <div class="card-body">
-                <form action="/cep/consultar" method="post">
+                <form action="/cep/consultar_cep" method="post">
                     @csrf
                     <h5 class="card-title">Informe o seu CEP</h5>
                     <div class="form-group">

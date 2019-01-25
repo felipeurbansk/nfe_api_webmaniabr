@@ -5,7 +5,16 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
 class CepController extends Controller
-{
+{    
+
+    /** Cria um objeto Client da biblioteca Guzzle e define seu cabeçalho como requirido pela API. */
+    public function __construct(){
+        $client = new Client(['headers' => 
+            [
+                'Content-type' => 'application/json'
+            ]
+        ]);
+    }
     /** Chamada da view consulta_cep */
     public function cep(){
         return view('consulta_cep');
@@ -26,13 +35,6 @@ class CepController extends Controller
         */
         $app_key = "seu_app_key";
         $app_secret = "seu_app_secret";
-    
-        /** Cria um objeto Client da biblioteca Guzzle e define seu cabeçalho como requirido pela API. */
-        $client = new Client(['headers' => 
-            [
-                'Content-type' => 'application/json'
-            ]
-        ]);
 
         /** Envia o json usando metodo GET para API cep e armazena o retorno em $resposta */
         $resposta = $client->request('GET', $url.$request->input('cep').'/?app_key='.$app_key.'&app_secret='.$app_secret);

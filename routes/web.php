@@ -20,4 +20,4 @@ Route::get('/nfe/consultar_nfe', 'NfeController@consultar_nfe');
 
 /** Rotas de CEP */
 Route::get('/cep', 'CepController@cep');
-Route::post('/cep/consultar', 'CepController@consultar_cep');
+Route::post('/cep/consultar_cep', 'CepController@consultar_cep');
