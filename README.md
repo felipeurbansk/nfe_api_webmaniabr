@@ -20,7 +20,7 @@
 </ul>
 
 <h3>Controladores</h3>
-<p>As funções de consulta e emissão estão inseridas no controlador NfeController, nele está toda a lógica de comunicação com a API utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>. Também existe o controlador CepController responsavel pela comunicação com a API CEP.</p>
+<p>As funções de consulta e emissão estão inseridas no controlador NfeController, nele está toda a lógica de comunicação com a API NF-e utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>. Também existe o controlador CepController responsavel pela comunicação com a API CEP.</p>
 
 <h3>Validação do formulario</h3>
 <p>As validações dos dados informados no formulário estão sendo tratados em uma classe request, localizado no diretório app/Http/Requests.</p>
