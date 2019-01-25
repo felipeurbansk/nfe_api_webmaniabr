@@ -48,6 +48,8 @@
 </ul>
 
 <h3>Utilização</h3>
+<p>Para comunicação com a API é preciso adicionar as chaves de acesso no cabeçalho das requisições, e para isso elas devem ser inseridas no inicio dos metodos de cada requisição.</p>
+
 <p>Inicialmente é necessário atualizar e instalar as dependências do framework, e para isso acontecer deve ser executado um comando no terminal. Navegue até a pasta do projeto utilizando um terminal e execute o seguinte comando:</p>
 
 <code><strong>composer update</strong></code>
