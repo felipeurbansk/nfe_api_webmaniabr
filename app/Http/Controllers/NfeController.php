@@ -20,9 +20,9 @@ use App\Unidade;
 
 class NfeController extends Controller
 {
-    /** Instancia um objeto Client da biblioteca Guzzle e adiciona o cabeçalho como requirido pela API. */
+   /** Credenciais de acesso da API NF-e */
     public function __construct(){
-        $client = new Client(['headers' => 
+        $this->$client = new Client(['headers' => 
                 [
                     'Content-type' => 'application/json',
                     'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
@@ -117,7 +117,7 @@ class NfeController extends Controller
         $url = "https://webmaniabr.com/api/1/nfe/";
         
         /** Envia o json usando metodo POST para API emissao e armazena o retorno em $resposta */
-        $resposta = $client->request('POST', $url.'emissao/', [
+        $resposta = $this->client->request('POST', $url.'emissao/', [
             'json' => $nfe
         ]);
         
@@ -142,7 +142,7 @@ class NfeController extends Controller
         $url = "https://webmaniabr.com/api/1/nfe/consulta/";
 
         /** Envia o json usando metodo GET para API consulta e armazena o retorno em $resposta */
-        $resposta = $client->request('GET', $url,[
+        $resposta = $this->client->request('GET', $url,[
             'json' => ['chave' => $request->input('chave')]
         ]);
 
