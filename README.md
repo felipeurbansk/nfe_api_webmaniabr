@@ -54,6 +54,7 @@
 public function __construct(){
     $this->app_key = "seu_app_key";
     $this->app_secret = "seu_app_secret";
+    
     $this->client = new Client(['headers' => 
         [
             'Content-type' => 'application/json'
