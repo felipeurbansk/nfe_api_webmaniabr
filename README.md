@@ -49,7 +49,7 @@
 
 <h3>Utilização</h3>
 <p>Para comunicação com a API é preciso adicionar as chaves de acesso no cabeçalho das requisições, e para isso elas devem ser inseridas no construtor de cada controlador.</p>
-<p>Exemplo construtor CEP:</p>
+<p>Exemplo construtor do controlador CEP:</p>
 <pre><code php>
 public function __construct(){
     $this->app_key = "seu_app_key";
