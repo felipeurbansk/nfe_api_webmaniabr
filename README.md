@@ -48,24 +48,36 @@
 </ul>
 
 <h3>Utilização</h3>
-<p>Para comunicação com a API é preciso adicionar as chaves de acesso no cabeçalho das requisições, e para isso elas devem ser inseridas no inicio dos metodos de cada requisição.</p>
+<p>Para comunicação com a API é preciso adicionar as chaves de acesso no cabeçalho das requisições, e para isso elas devem ser inseridas no construtor de cada controlador.</p>
+<p>Exemplo construtor CEP:</p>
+<pre><code php>
+public function __construct(){
+    $this->app_key = "seu_app_key";
+    $this->app_secret = "seu_app_secret";
+    $this->client = new Client(['headers' => 
+        [
+            'Content-type' => 'application/json'
+        ]
+    ]);
+}
+</code></pre>
 
 <p>Inicialmente é necessário atualizar e instalar as dependências do framework, e para isso acontecer deve ser executado um comando no terminal. Navegue até a pasta do projeto utilizando um terminal e execute o seguinte comando:</p>
 
-<code><strong>composer update</strong></code>
+<pre><code>composer update</code></pre>
 
 <p>Com o framework atualizado pode dar início a migração das tabelas para o banco de dados, e para isso é necessário executar:</p>
 
-<code><strong>php artisan migrate</strong></code>
+<pre><code>php artisan migrate</code></pre>
 
 <p>Com isso, todas as tabelas já estão criadas no banco, sendo necessário agora apenas preencher algumas tabelas que servem para armazenar dados que são utilizados para preencher campos do formulário de emissão, como por exemplo a tabela Operação, onde está armazenado as opções 0 – Entrada 1 – Saída.</p>
 <p>Para preencher essas tabelas executar o seguinte comando:</p>
 
-<code><strong>php artisan db:seed</strong></code>
+<pre><code>php artisan db:seed</code></pre>
 
 <p>Após os passos anteriores o projeto já está pronto para ser iniciado, e para isso falta apenas iniciar o servidor web do próprio laravel:</p>
 
-<code><strong>php artisan serve</strong></code>
+<pre><code>php artisan serve</code></pre>
 
 <p>Com isso será informado um link de acesso ao sistema, por padrão esse link disponibilizado é localhost:8000.</p>
 <p>E dessa forma já se tem acesso ao sistema web podendo assim realizar os devidos testes.</p>
