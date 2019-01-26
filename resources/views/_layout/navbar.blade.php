@@ -15,7 +15,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/nfe/emitirnfe">Emitir</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/nfe/consultar_cep">Consultar</a>
+                    <a class="dropdown-item" href="/nfe/consultar">Consultar</a>
                 </div>
               </li>
             </li>

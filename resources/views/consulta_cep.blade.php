@@ -7,12 +7,12 @@
                 Consultar CEP
             </div>
             <div class="card-body">
-                <form action="/cep/consultar_cep" method="post">
+                <form action="/cep/consultar_cep" method="get">
                     @csrf
                     <h5 class="card-title">Informe o seu CEP</h5>
                     <div class="form-group">
                         <input class="form-control mb-3" type="text" name="cep" id="cep">
-                        @if ($errors->has('cep'))
+                        @if($errors->has('cep'))
                             <span class="help-inline text-danger">{{$errors->first('cep')}}</span>
                         @endif
                     </div>
@@ -20,7 +20,7 @@
                 </form>
             </div>
         </div>
-        @if(isset($cep))
+        @if(isset($cep) && $errors->first('cep') == null)
             <div class="card mt-3">
                 <div class="card-header">
                     Resultado da busca

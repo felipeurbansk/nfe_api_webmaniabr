@@ -22,7 +22,10 @@ class NfeController extends Controller
 {
    /** Credenciais de acesso da API NF-e */
     public function __construct(){
-        $this->$client = new Client(['headers' => 
+        /** URL Base */
+        $this->url = "https://webmaniabr.com/api/1/nfe/";
+        /** Header */
+        $this->client = new Client(['headers' => 
                 [
                     'Content-type' => 'application/json',
                     'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
@@ -108,46 +111,93 @@ class NfeController extends Controller
         /** Recarrega o objeto nfe com todos os dados já inseridos e converte para o formato json*/
         $nfe = json_encode($nfe->load(['cliente','pedido','produtos']));
         
-        /** Chama a função responsavel pela comunicação com a API de emissão */
-        $this->enviar_dados($nfe);
+        /** Chama a função responsavel pela comunicação com a API metodo emissão */
+        $this->emitir_nfe($nfe);
     }
 
-    public function enviar_dados($nfe){
-        /** Atribui o endereço base para a chamada da API */
-        $url = "https://webmaniabr.com/api/1/nfe/";
-        
-        /** Envia o json usando metodo POST para API emissao e armazena o retorno em $resposta */
-        $resposta = $this->client->request('POST', $url.'emissao/', [
-            'json' => $nfe
-        ]);
-        
-        /** Retorna o conteudo do json recebido da API */
-        return $resposta->getBody()->getContents();
+    public function emitir_nfe($nfe){
+        try{
+            /** Requisição emissão de NF-e */
+            $resposta = $this->client->request('POST', $this->url.'emissao/', [
+                'json' => $nfe
+            ]);
+            /** Retorna a resposta json*/
+            $nfe = json_decode($resposta->getBody()->getContents(), true);
+            return $nfe;
+        }catch(\Exception $e){
+            return back()->with('msg_error', 'Não foi possível emitir a NF-e: '.$e);
+        }
     }
 
-    /** Faz a chamada da view consulta_nfe */
     public function consultar(){
         return view('consulta_nfe');
     }
 
-    /** Metodo responsavel pela consulta de NF-e utilizando sua chave */
+    /** Metodo responsavel pela consulta de NF-e através de sua chave */
     public function consultar_nfe(Request $request){
-
-        /** Validação de campo obrigatorio no input chave */
-        $this->validate($request, [
-            'chave' => 'required'
-        ]);
-
-        /** Atribui o endereço base para a chamada da API */
-        $url = "https://webmaniabr.com/api/1/nfe/consulta/";
-
-        /** Envia o json usando metodo GET para API consulta e armazena o retorno em $resposta */
-        $resposta = $this->client->request('GET', $url,[
-            'json' => ['chave' => $request->input('chave')]
-        ]);
-
-        /** Retorna o conteudo do json recebido da API */
-        return $resposta->getBody()->getContents();
+        try{
+            /** Validação de campo obrigatorio no input chave */
+            $this->validate($request, [
+                'chave' => 'required'
+            ]);
+            /** Requisição consulta de NF-e */
+            $resposta = $this->client->request('GET', $this->url.'consulta/',[
+                'json' => ['chave' => $request->input('chave')]
+            ]);
+            /** Retorna a resposta json*/
+            $nfe = json_decode($resposta->getBody()->getContents(), true);
+            return $nfe;
+        }catch(\Exception $e){
+            return back()->with('msg_error', 'Não foi possível consultar a NF-e: '.$e);
+        }
     }
 
+    /** Metodo responsavel pela consulta do status do SEFAZ */
+    public function consulta_sefaz(){
+        try{
+            /** Requisição status sefaz */
+            $resposta = $this->client->request('GET', $this->url.'sefaz/');
+            /** Retorna a resposta json*/
+            $status_sefaz = json_decode($resposta->getBody()->getContents(), true);
+            return $status_sefaz;
+        }catch(\Exception $e){
+            return back()->with('msg_error', 'Não foi possível consultar o status dos serviços sefaz: '.$e);
+        }
+    }
+
+    /** Metodo responsavel pela validação de certificado */
+    public function validacao_certificado(){
+        try{
+            /** Requisição cerificado */
+            $reposta = $this->client->request('GET', $this->url.'certificado/');
+            /** Retorna a resposta json*/
+            $certificado = json_decode($resposta->getBody()->getContents(), true);
+            return $certificado;
+        }catch(\Exception $e){
+            return back()->with('msg_error', 'Não foi possível consultar certificado: '.$e);
+        }
+    }
+
+    /** Metodo responsavel pelo cancelamento de NF-e */
+    public function cancelar_nfe(Request $request){
+        /** Validação do formulario */
+        $this->validate($request, [
+            'chave' => 'required',
+            'motivo' => 'required',
+        ]);
+
+        try{
+            $nfe->chave = $request->input('chave');
+            $nfe->motivo = $request->input('motivo');
+            /** Requisição cancelamento */
+            $reposta = $this->client->request('PUT', $this->url.'cancelar/',[
+                'json' => $nfe
+            ]);
+            /** Retorna a resposta json*/
+            $cancelamento = json_decode($resposta->getBody()->getContents(), true);
+            return $cancelamento;
+        }catch(\Exception $e){
+            return back()->with('msg_error', 'Não foi possível cancelar a NF-e: '.$e);
+        }
+    }
 }
