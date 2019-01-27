@@ -28,7 +28,7 @@
     O campo CPF e CEP são validados utilizando a biblioteca <a href="https://github.com/LaravelLegends/pt-br-validator">LaravelLegends/pt-br-validator</a>.</p>
 
 <h3>Rotas</h3>
-<p>Nesse projeto existem 2 grupos de rotas definidas, que são <pre>"/nfe"</pre> e <pre>"/cep"</pre>.</p>
+<p>Nesse projeto existem 2 grupos de rotas definidas, que são <pre>/nfe</pre> e <pre>/cep</pre>.</p>
 <p>Grupo de rotas NF-e</p>
 <ul>
     <li><strong>/</strong> - Redireciona para pagina index.</li>
