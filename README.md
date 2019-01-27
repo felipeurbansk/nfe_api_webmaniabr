@@ -61,24 +61,8 @@
 
 <h3>Utilização</h3>
 <p>Para comunicação com a API é preciso adicionar as chaves de acesso no cabeçalho das requisições, e para isso elas devem ser inseridas no construtor de cada controlador.</p>
-<p>Exemplo construtor do controlador CEP:</p>
-<pre><code php>
-public function __construct(){
-    /** URL Base  */
-    $this->url = "https://webmaniabr.com/api/1/cep/";
-    /** Credenciais de acesso */
-    $this->app_key = "sua_app_key";
-    $this->app_secret = "sua_secret_key";
-    /** Header */
-    $this->client = new Client(['headers' => 
-        [
-            'Content-type' => 'application/json'
-        ]
-    ]);
-}
-</code></pre>
 
-<p>Exemplo construtor do contralor NF-e:</p>
+<p>Exemplo construtor controlador NF-e:</p>
 <pre><code>
 public function __construct(){
     /** URL Base */
@@ -96,6 +80,22 @@ public function __construct(){
 }
 </code></pre>
 
+<p>Exemplo construtor controlador CEP:</p>
+<pre><code php>
+public function __construct(){
+    /** URL Base  */
+    $this->url = "https://webmaniabr.com/api/1/cep/";
+    /** Credenciais de acesso */
+    $this->app_key = "sua_app_key";
+    $this->app_secret = "sua_secret_key";
+    /** Header */
+    $this->client = new Client(['headers' => 
+        [
+            'Content-type' => 'application/json'
+        ]
+    ]);
+}
+</code></pre>
 <p>Inicialmente é necessário atualizar e instalar as dependências do framework, e para isso acontecer deve ser executado um comando no terminal. Navegue até a pasta do projeto utilizando um terminal e execute o seguinte comando:</p>
 
 <pre><code>composer update</code></pre>
