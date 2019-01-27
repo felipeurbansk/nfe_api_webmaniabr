@@ -1,7 +1,7 @@
 @extends('_layout.app')
 
 @section('content')
-    <div class="container">
+    <div class="container col-7">
         <div class="card">
             <div class="card-header">
                 Consultar Nota Fiscal Eletrônica
@@ -20,4 +20,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('javascript')
+    <!-- Javascript aqui -->
 @endsection

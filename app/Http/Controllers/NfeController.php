@@ -36,13 +36,13 @@ class NfeController extends Controller
         ]);
     }
 
-    /* Chamada da view index pela rota / */
+    /* Chamada da view index */
     public function index()
     {
         return view('index');
     }
 
-    /*  Chamada do formulario para emitir NF-e. */
+    /*  Chamada do formulario de emissão*/
     public function emitir()
     {
         $modalidade_frete = ModalidadeFrete::all();
@@ -57,12 +57,10 @@ class NfeController extends Controller
         return view('emissao_nfe', compact('modalidade_frete', 'operacao', 'origem', 'presenca', 'unidade'));
     }
 
+    /** Metodo responsavel por salvar as informações da NF-e no banco de dados antes de envia-lo para API */
     public function salvar(NfeRequest $request)
-    {
-        /** Salvar as informações da nota no banco de dados antes de envia-lo para API */
-        
+    {        
         DB::beginTransaction();
-
         try{
             /** Salvando os dados na tabela nfe */
             $nfe = Nfe::create($request->except('_token'));
@@ -100,12 +98,12 @@ class NfeController extends Controller
             $pedido->frete = $request->input('frete');
             $pedido->desconto = $request->input('desconto');
             $nfe->pedido()->save($pedido);
-            /** Comitando a transação com banco */
+            /** Finaliza a comunicação com banco */
             DB::commit();
-        }catch(Exception $e){
+        }catch(\Exception $e){
             /** Caso ocorra uma exceção é revertido a operação com o banco e o redireciona para tela anterior */
             DB::rollback();
-            return back()->with('error', 'Não foi possivel lançar a nota fiscal.');
+            return back()->with('error', 'Não foi possível salvar as informações da NF-e no banco de dados.');
         }
 
         /** Recarrega o objeto nfe com todos os dados já inseridos e converte para o formato json*/
@@ -115,6 +113,7 @@ class NfeController extends Controller
         $this->emitir_nfe($nfe);
     }
 
+    /** Metodo responsavel pela emissão de NF-e */
     public function emitir_nfe($nfe){
         try{
             /** Requisição emissão de NF-e */
@@ -125,11 +124,12 @@ class NfeController extends Controller
             $nfe = json_decode($resposta->getBody()->getContents(), true);
             return $nfe;
         }catch(\Exception $e){
-            return back()->with('msg_error', 'Não foi possível emitir a NF-e: '.$e);
+            return back()->with('msg_error', 'Não foi possível emitir a NF-e. Favor verificar suas credenciais de acesso ou status do sefaz.');
         }
     }
 
-    public function consultar(){
+    /** Chamada do formulario de consulta */
+    public function consulta(){
         return view('consulta_nfe');
     }
 
@@ -148,7 +148,7 @@ class NfeController extends Controller
             $nfe = json_decode($resposta->getBody()->getContents(), true);
             return $nfe;
         }catch(\Exception $e){
-            return back()->with('msg_error', 'Não foi possível consultar a NF-e: '.$e);
+            return back()->with('msg_error', 'Não foi possível consultar a NF-e. Favor verificar suas credenciais de acesso ou status do sefaz.');
         }
     }
 
@@ -161,25 +161,36 @@ class NfeController extends Controller
             $status_sefaz = json_decode($resposta->getBody()->getContents(), true);
             return $status_sefaz;
         }catch(\Exception $e){
-            return back()->with('msg_error', 'Não foi possível consultar o status dos serviços sefaz: '.$e);
+            return back()->with('msg_error', 'Não foi possível consultar o status do sefaz. Favor verificar suas credenciais de acesso.');
         }
     }
 
+    /** Chamada da view de validação de certificado */
+    public function validacao_cert(){
+        return view('validacao_cert');
+    }
+
     /** Metodo responsavel pela validação de certificado */
-    public function validacao_certificado(){
+    public function validar_cert(){
         try{
             /** Requisição cerificado */
             $reposta = $this->client->request('GET', $this->url.'certificado/');
             /** Retorna a resposta json*/
-            $certificado = json_decode($resposta->getBody()->getContents(), true);
-            return $certificado;
+            $cert = json_decode($resposta->getBody()->getContents(), true);
+            return view('validacao_cert', compact('cert'));
         }catch(\Exception $e){
-            return back()->with('msg_error', 'Não foi possível consultar certificado: '.$e);
+            return back()->with('msg_error', 'Não foi possível validar o certificado. Favor verificar suas credenciais de acesso ou status do sefaz.');
         }
     }
 
-    /** Metodo responsavel pelo cancelamento de NF-e */
+    /** Chamada do formulario de cancelamento */
+    public function cancelamento_nfe(){
+        return view('cancelamento_nfe');
+    }
+
+    /** Metodo responsavel pelo cancelamento */
     public function cancelar_nfe(Request $request){
+        
         /** Validação do formulario */
         $this->validate($request, [
             'chave' => 'required',
@@ -187,8 +198,9 @@ class NfeController extends Controller
         ]);
 
         try{
-            $nfe->chave = $request->input('chave');
-            $nfe->motivo = $request->input('motivo');
+            $nfe['chave'] = $request->input('chave');
+            $nfe['motivo'] = $request->input('motivo');
+            json_encode($nfe);
             /** Requisição cancelamento */
             $reposta = $this->client->request('PUT', $this->url.'cancelar/',[
                 'json' => $nfe
@@ -197,7 +209,39 @@ class NfeController extends Controller
             $cancelamento = json_decode($resposta->getBody()->getContents(), true);
             return $cancelamento;
         }catch(\Exception $e){
-            return back()->with('msg_error', 'Não foi possível cancelar a NF-e: '.$e);
+            return back()->with('msg_error', 'Não foi possível cancelar a NF-e. Favor verificar suas credenciais de acesso ou status do sefaz.');
+        }
+    }
+
+    /** Chamada do formulario de devolução */
+    public function devolver_nfe(){
+        return view('devolucao_nfe');
+    }
+
+    /** Metodo responsavel pela devolução */
+    public function devolucao_nfe(Request $request){
+
+        /** Validação do formulario */
+        $this->validate($request, [
+            'chave' => 'required',
+            'natureza_operacao' => 'required',
+            'ambiente' => 'required',
+        ]);
+
+        $nfe_dev['chave'] = $request->input('chave');
+        $nfe_dev['natureza_operacao'] = $request->input('natureza_operacao');
+        $nfe_dev['ambiente'] = $request->input('ambiente');
+        json_encode($nfe_dev);
+        try{
+            /** Requisição de devolucao */
+            $reposta = $this->client->request('POST', $this->url.'devolucao/',[
+                'json' => $nfe_dev
+            ]);
+            /** Retorna a resposta json*/
+            $devolucao = json_decode($resposta->getBody()->getContents(), true);
+            return $devolucao;
+        }catch(\Exception $e){
+            return back()->with('msg_error', 'Não foi possível realizar a devolução da NF-e. Favor verificar suas credenciais de acesso ou status do sefaz.');
         }
     }
 }

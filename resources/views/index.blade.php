@@ -7,3 +7,7 @@
     
     </div>
 @endsection
+
+@section('javascript')
+    <!-- Javascript aqui -->
+@endsection

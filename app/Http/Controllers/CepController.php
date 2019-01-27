@@ -9,8 +9,8 @@ class CepController extends Controller
 {       
     /** Credenciais de acesso da API CEP: */
     public function __construct(){
-        $this->app_key = "XGHKZ7OVJdGNt4taheqfd0OAsJfuaHc9";
-        $this->app_secret = "7eJAy357F7rlti5tGNO2Nmeu016F4JyiCWR1IESPla2CdJdq";
+        $this->app_key = "sua_app_key";
+        $this->app_secret = "sua_secret_key";
         $this->client = new Client(['headers' => 
             [
                 'Content-type' => 'application/json'

@@ -10,7 +10,12 @@
 </head>
 <body>
     <!-- Navbar -->
-    <div class="container">
+    <div class="container col-7">
+        @if (session('msg_error'))
+            <div class="alert alert-warning" role="alert">
+                <strong>{{session('msg_error')}}</strong>
+            </div>
+        @endif
         @component('_layout.navbar')
         @endcomponent
     </div>
