@@ -153,7 +153,7 @@ class NfeController extends Controller
     }
 
     /** Metodo responsavel pela consulta do status do SEFAZ */
-    public function consulta_sefaz(){
+    public function status_sefaz(){
         try{
             /** Requisição status sefaz */
             $resposta = $this->client->request('GET', $this->url.'sefaz/');

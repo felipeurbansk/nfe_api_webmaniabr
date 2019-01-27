@@ -28,15 +28,27 @@
     O campo CPF e CEP são validados utilizando a biblioteca <a href="https://github.com/LaravelLegends/pt-br-validator">LaravelLegends/pt-br-validator</a>.</p>
 
 <h3>Rotas</h3>
-<p>Nesse projeto existem 7 rotas definidas:</p>
+<p>Nesse projeto existem 2 grupos de rotas definidas, que são <pre>"/nfe"</pre> e <pre>"/cep"</pre>.</p>
+<p>Grupo de rotas NF-e</p>
 <ul>
     <li><strong>/</strong> - Redireciona para pagina index.</li>
-    <li><strong>/nfe/emitirnfe</strong> – Redireciona para o formulário de emissão.</li>
-    <li><strong>/nfe/salvarnfe</strong> – Redireciona para o controlador NfeController função salvar.</li>
-    <li><strong>/nfe/consultar</strong> – Redireciona para o formulário de consulta</li>
-    <li><strong>/nfe/consultar_nfe</strong> – Redireciona para o controlador NfeController função consultar_nfe</li>
-    <li><strong>/cep</strong> – Redireciona para o formulário de consultar CEP.</li>
-    <li><strong>/cep/consultar</strong> – Redireciona para o controlador CepController função consultar_cep</li>
+    <li><strong>/emitir_nfe</strong> – Redireciona para o formulário de emissão.</li>
+    <li><strong>/salvar_nfe</strong> – Redireciona para o controlador NfeController função salvar.</li>
+    <li><strong>/consulta</strong> – Redireciona para o formulário de consulta</li>
+    <li><strong>/consultar_nfe</strong> – Redireciona para o controlador NfeController função consultar_nfe</li>
+    <li><strong>/cancelamento_nfe</strong> - Redireciona para o formulário de cancelamento</li>
+    <li><strong>/cancelar_nfe</strong> - Redireciona para o controlador NfeController função cancelar_nfe</li>
+    <li><strong>/devolver_nfe</strong> - Redireciona para o formulário de devolução</li>
+    <li><strong>/devolucao_nfe</strong> - Redireciona para o controlador NfeController função devolucao_nfe</li>
+    <li><strong>/validacao_cert</strong> - Redireciona para o formulário de validação de certificado</li>
+    <li><strong>/validar_cert</strong> - Redireciona para o controlador NfeController função validar_cert</li>
+    <li><strong>/status_sefaz</strong> - Redireciona para o controlador NfeController função status_sefaz</li>
+</ul>
+
+<p>Grupo de rotas CEP</p>
+<ul>
+    <li><strong>/</strong> – Redireciona para o formulário de consulta CEP.</li>
+    <li><strong>/consultar_cep</strong> – Redireciona para o controlador CepController função consultar_cep</li>
 </ul>
 
 <h3>Requisitos</h3>
