@@ -8,15 +8,19 @@ use GuzzleHttp\Client;
 class CepController extends Controller
 {       
     /** Credenciais de acesso da API CEP: */
-    public function __construct(){
-        $this->app_key = "sua_app_key";
-        $this->app_secret = "sua_secret_key";
-        $this->client = new Client(['headers' => 
-            [
-                'Content-type' => 'application/json'
-            ]
-        ]);
-    }
+public function __construct(){
+    /** URL Base  */
+    $this->url = "https://webmaniabr.com/api/1/cep/";
+    /** Credenciais de acesso */
+    $this->app_key = "sua_app_key";
+    $this->app_secret = "sua_secret_key";
+    /** Header */
+    $this->client = new Client(['headers' => 
+        [
+            'Content-type' => 'application/json'
+        ]
+    ]);
+}
 
     /** Chamada da view consulta_cep */
     public function cep(){
@@ -31,11 +35,8 @@ class CepController extends Controller
             'cep' => 'required|formato_cep'
         ]);
         try{
-            /** Atribui o endereço base para a chamada da API */
-            $url = "https://webmaniabr.com/api/1/cep/";
-
             /** Envia o json usando metodo GET para API cep e armazena o retorno em $resposta */
-            $resposta = $this->client->request('GET', $url.$request->input('cep').'/?app_key='.$this->app_key.'&app_secret='.$this->app_secret);
+            $resposta = $this->client->request('GET', $this->url.$request->input('cep').'/?app_key='.$this->app_key.'&app_secret='.$this->app_secret);
         
             /** Retorna o conteudo do json recebido da API */
             $cep = json_decode($resposta->getBody()->getContents(), true);

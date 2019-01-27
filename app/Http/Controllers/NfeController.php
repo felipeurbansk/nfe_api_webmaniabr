@@ -24,7 +24,7 @@ class NfeController extends Controller
     public function __construct(){
         /** URL Base */
         $this->url = "https://webmaniabr.com/api/1/nfe/";
-        /** Header */
+        /** Header / Credenciais de acesso */
         $this->client = new Client(['headers' => 
                 [
                     'Content-type' => 'application/json',
