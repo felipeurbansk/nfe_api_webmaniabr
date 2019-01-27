@@ -64,12 +64,34 @@
 <p>Exemplo construtor do controlador CEP:</p>
 <pre><code php>
 public function __construct(){
-    $this->app_key = "seu_app_key";
-    $this->app_secret = "seu_app_secret";
+    /** URL Base  */
+    $this->url = "https://webmaniabr.com/api/1/cep/";
+    /** Credenciais de acesso */
+    $this->app_key = "sua_app_key";
+    $this->app_secret = "sua_secret_key";
+    /** Header */
     $this->client = new Client(['headers' => 
         [
             'Content-type' => 'application/json'
         ]
+    ]);
+}
+</code></pre>
+
+<p>Exemplo construtor do contralor NF-e:</p>
+<pre><code>
+public function __construct(){
+    /** URL Base */
+    $this->url = "https://webmaniabr.com/api/1/nfe/";
+    /** Header */
+    $this->client = new Client(['headers' => 
+            [
+                'Content-type' => 'application/json',
+                'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
+                'X-Consumer-Secret' => 'SEU_CONSUMER_SECRET',
+                'X-Access-Token' => 'SEU_ACCESS_TOKEN',
+                'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
+            ]
     ]);
 }
 </code></pre>
