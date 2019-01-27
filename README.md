@@ -1,10 +1,10 @@
 # Emissão Nota Fiscal Eletrônica
 
 <h3>Visão geral</h3>
-<p>Esse projeto foi desenvolvido em Laravel na versão 5.7 abrangendo os módulos de emissão e consulta de NF-e e também um modulo para consulta de CEP utilizando a API REST disponibilizado pela <a href="https://webmaniabr.com/docs/rest-api-nfe/">WebManiaBR </a>.</p>
+<p>Esse projeto foi desenvolvido em Laravel na versão 5.7 abrangendo os seguintes modulos de NF-e: Emissão, consulta, cancelamento, devolução e validação de certificado. Também incorpora um modulo para consulta de CEP, ambos utilizando a REST API disponibilizado <a href="https://webmaniabr.com/docs/rest-api-nfe/">WebManiaBR </a>.</p>
 
 <h3>Banco de dados</h3>
-<p>Está sendo utilizado o banco de dados sqlite para armazenar todos os dados de uma nota fiscal emitida pelo sistema web, menos os dados de resposta da API como chave e xml devido a restrição de acesso.</p>
+<p>Está sendo utilizado o banco de dados sqlite para armazenar os dados de NF-e emitida pelo sistema web, menos os dados de resposta da API, como chave e xml devido a restrição de acesso a REST API.</p>
 
 <h3>Modelos</h3>
 <ul>
@@ -20,7 +20,7 @@
 </ul>
 
 <h3>Controladores</h3>
-<p>As funções de consulta e emissão estão inseridas no controlador NfeController, nele está toda a lógica de comunicação com a API NF-e utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>. Também existe o controlador CepController responsavel pela comunicação com a API CEP.</p>
+<p>Os metodos da NF-e estão inseridas no controlador NfeController, nele está toda a lógica de comunicação com a REST API NF-e utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>. Também existe o controlador CepController responsavel pela comunicação com a REST API CEP.</p>
 
 <h3>Validação do formulario</h3>
 <p>As validações dos dados informados no formulário estão sendo tratados em uma classe request, localizado no diretório app/Http/Requests.</p>
