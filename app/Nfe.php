@@ -14,7 +14,7 @@ class Nfe extends Model
 
     /** Relacionamento com a tabela cliente */
     public function cliente(){
-        return $this->hasMany('App\Cliente');
+        return $this->hasOne('App\Cliente');
     }
 
     /** Relacionamento com a tabela produtos */
@@ -24,6 +24,6 @@ class Nfe extends Model
 
     /** Relacionamento com a tabela pedido */
     public function pedido(){
-        return $this->hasMany('App\Pedido');
+        return $this->hasOne('App\Pedido');
     }
 }

@@ -58,7 +58,7 @@ class NfeController extends Controller
     }
 
     /** Metodo responsavel por salvar as informações da NF-e no banco de dados antes de envia-lo para API */
-    public function salvar(NfeRequest $request)
+    public function salvar_nfe(NfeRequest $request)
     {        
         DB::beginTransaction();
         try{
@@ -110,7 +110,7 @@ class NfeController extends Controller
         $nfe = json_encode($nfe->load(['cliente','pedido','produtos']));
         
         /** Chama a função responsavel pela comunicação com a API metodo emissão */
-        $this->emitir_nfe($nfe);
+        return $this->emitir_nfe($nfe);
     }
 
     /** Metodo responsavel pela emissão de NF-e */

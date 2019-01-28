@@ -156,7 +156,7 @@
                                     <label class="text-right" for="unidade">Unidade de medida</label>
                                     <select name="unidade" id="unidade" class="form-control">
                                         @foreach($unidade as $un)
-                                            <option @if(old('unidade') == $un->id) selected @endif value="{{$un->id}}">{{$un->descricao}}</option>
+                                            <option @if(old('unidade') == $un->descricao) selected @endif value="{{$un->descricao}}">{{$un->descricao}}</option>
                                         @endforeach
                                     </select>
                                 </div>
