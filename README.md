@@ -69,13 +69,13 @@ public function __construct(){
     $this->url = "https://webmaniabr.com/api/1/nfe/";
     /** Header */
     $this->client = new Client(['headers' => 
-            [
-                'Content-type' => 'application/json',
-                'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
-                'X-Consumer-Secret' => 'SEU_CONSUMER_SECRET',
-                'X-Access-Token' => 'SEU_ACCESS_TOKEN',
-                'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
-            ]
+        [
+            'Content-type' => 'application/json',
+            'X-Consumer-Key' => 'SEU_CONSUMER_KEY',
+            'X-Consumer-Secret' => 'SEU_CONSUMER_SECRET',
+            'X-Access-Token' => 'SEU_ACCESS_TOKEN',
+            'X-Access-Token-Secret' => 'SEU_ACCESS_TOKEN_SECRET'
+        ]
     ]);
 }
 </code></pre>
