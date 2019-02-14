@@ -6,19 +6,6 @@
 <h3>Banco de dados</h3>
 <p>Está sendo utilizado o banco de dados sqlite para armazenar os dados de NF-e emitida pelo sistema web, menos os dados de resposta da API, como chave e xml devido a restrição de acesso a REST API.</p>
 
-<h3>Modelos</h3>
-<ul>
-    <li><strong>Cliente</strong></li>
-    <li><strong>ModalidadeFrete</strong></li>
-    <li><strong>Nfe</strong></li>
-    <li><strong>Operacao</strong></li>
-    <li><strong>Origem</strong></li>
-    <li><strong>Pedido</strong></li>
-    <li><strong>Presença</strong></li>
-    <li><strong>Produto</strong></li>
-    <li><strong>Unidade</strong></li>
-</ul>
-
 <h3>Controladores</h3>
 <p>Os metodos da NF-e estão inseridas no controlador NfeController, nele está toda a lógica de comunicação com a REST API NF-e utilizando a biblioteca <a href="https://github.com/guzzle/guzzle">Guzzle</a>. Também existe o controlador CepController responsavel pela comunicação com a REST API CEP.</p>
 
